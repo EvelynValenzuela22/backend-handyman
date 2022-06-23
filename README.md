@@ -7,7 +7,7 @@
 
 > git clone https://github.com/EvelynValenzuela22/backend-handyman
 >
->git checkout -b nombre-rama
+>git checkout -b nombre-rama *Es importante crear una nueva rama
 >
 >git add .
 >
