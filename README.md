@@ -5,7 +5,7 @@
 
 ## Instalación 
 
-> git clone https://github.com/EvelynValenzuela22/backend-handyman
+> git clone https://github.com/EvelynValenzuela22/backend-handyman.git
 >
 >git checkout -b nombre-rama *Es importante crear una nueva rama
 >
