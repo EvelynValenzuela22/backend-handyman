@@ -65,10 +65,4 @@ PRIMARY KEY(service_id,technician_id)
 );
 
 
-INSERT INTO TECHNICIAN(document_type, document_number, first_name, last_name) VALUES
-    ('CC', '1152987324', 'Cristian Camilo', 'Zambrano Grajales'),
-    ('CC', '1152669883', 'Jaime Alejandro', ' Gomez Solarte'),
-    ('CC', '9999999999', 'Sebastián David', 'Carvajal Rosero'),
-    ('CC', '78956453', 'Sammy Steven', 'Muñoz Hidalgo'),
-    ('CC', '16466873', 'Raquel Sofía', 'Neira Chaparro'),
-    ('Cédula de extrangería', 'E153354A', 'Carlos', 'Lugo');
+
