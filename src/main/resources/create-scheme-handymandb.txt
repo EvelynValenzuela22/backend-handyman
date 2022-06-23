@@ -5,17 +5,18 @@ CREATE SEQUENCE seq
 
 
 CREATE TABLE USERS(
-id BIGINT UNIQUE	NOT NULL,
+id              BIGINT  NOT NULL GENERATED ALWAYS AS IDENTITY,
+identification  INTEGER UNIQUE NOT NULL,
 PRIMARY KEY(id)
 );
 
 
 CREATE TABLE TECHNICIAN(
-id	BIGINT DEFAULT nextval('seq') UNIQUE,
-document_type	VARCHAR(30)	NOT NULL,
+id	            BIGINT DEFAULT nextval('seq') UNIQUE,
+document_type	VARCHAR(20)	NOT NULL,
 document_number	VARCHAR(20)	UNIQUE	NOT NULL,
-first_name	VARCHAR(20)	NOT NULL,
-last_name	VARCHAR(20)	NOT NULL,
+first_name	    VARCHAR(20)	NOT NULL,
+last_name	    VARCHAR(20)	NOT NULL,
 PRIMARY KEY(id)
 );
 
@@ -52,10 +53,10 @@ PRIMARY KEY(id)
 
 
 CREATE TABLE SERVICE_TECHNICIAN(
-service_id	BIGINT	NOT NULL,
-technician_id	INT	NOT NULL,
-start_date	DATE	NOT NULL,
-final_date	DATE	NOT NULL,
+service_id	    BIGINT	NOT NULL,
+technician_id	BIGINT	NOT NULL,
+start_date	    DATE	NOT NULL,
+final_date	    DATE	NOT NULL,
 CONSTRAINT fk_service FOREIGN KEY (service_id)
       REFERENCES SERVICE(id),
 CONSTRAINT fk_technician FOREIGN KEY (technician_id)
