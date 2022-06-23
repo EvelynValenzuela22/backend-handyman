@@ -1,0 +1,74 @@
+/*CREAR BASE DE DATOS PRIMERO LLAMADA "handymandb"*/
+CREATE SEQUENCE seq
+   START 2
+   INCREMENT 1;
+
+
+CREATE TABLE USERS(
+id              BIGINT  NOT NULL GENERATED ALWAYS AS IDENTITY,
+identification  INTEGER UNIQUE NOT NULL,
+PRIMARY KEY(id)
+);
+
+
+CREATE TABLE TECHNICIAN(
+id	            BIGINT DEFAULT nextval('seq') UNIQUE,
+document_type	VARCHAR(20)	NOT NULL,
+document_number	VARCHAR(20)	UNIQUE	NOT NULL,
+first_name	    VARCHAR(20)	NOT NULL,
+last_name	    VARCHAR(20)	NOT NULL,
+PRIMARY KEY(id)
+);
+
+
+CREATE TABLE SERVICE_TYPE(
+id	INT	NOT NULL	GENERATED ALWAYS AS IDENTITY,
+name	VARCHAR(20)	UNIQUE NOT NULL,
+PRIMARY KEY(id)
+);
+
+
+CREATE TABLE TIME(
+id	INT	NOT NULL	GENERATED ALWAYS AS IDENTITY,
+title	VARCHAR(20)	UNIQUE NOT NULL,
+PRIMARY KEY(id)
+);
+
+
+CREATE TABLE SERVICE(
+id	BIGINT DEFAULT nextval('seq') UNIQUE,
+type_id	INT	NOT NULL,
+address VARCHAR(30)	NOT NULL,
+time_id	INT	NOT NULL,
+user_id	BIGINT	NOT NULL,
+CONSTRAINT fk_type FOREIGN KEY (type_id)
+      REFERENCES SERVICE_TYPE(id),
+CONSTRAINT fk_time FOREIGN KEY (time_id)
+      REFERENCES TIME(id),
+CONSTRAINT fk_user FOREIGN KEY (user_id)
+      REFERENCES USERS(id),
+PRIMARY KEY(id)
+);
+
+
+
+CREATE TABLE SERVICE_TECHNICIAN(
+service_id	    BIGINT	NOT NULL,
+technician_id	BIGINT	NOT NULL,
+start_date	    DATE	NOT NULL,
+final_date	    DATE	NOT NULL,
+CONSTRAINT fk_service FOREIGN KEY (service_id)
+      REFERENCES SERVICE(id),
+CONSTRAINT fk_technician FOREIGN KEY (technician_id)
+      REFERENCES TECHNICIAN(id),
+PRIMARY KEY(service_id,technician_id)
+);
+
+
+INSERT INTO TECHNICIAN(document_type, document_number, first_name, last_name) VALUES
+    ('CC', '1152987324', 'Cristian Camilo', 'Zambrano Grajales'),
+    ('CC', '1152669883', 'Jaime Alejandro', ' Gomez Solarte'),
+    ('CC', '9999999999', 'Sebastián David', 'Carvajal Rosero'),
+    ('CC', '78956453', 'Sammy Steven', 'Muñoz Hidalgo'),
+    ('CC', '16466873', 'Raquel Sofía', 'Neira Chaparro'),
+    ('Cédula de extrangería', 'E153354A', 'Carlos', 'Lugo');
