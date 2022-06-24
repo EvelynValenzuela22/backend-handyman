@@ -4,12 +4,12 @@ import co.com.ias.handyman.technician.application.domain.valueObjs.*;
 
 public class Technician {
     private final TechnicianId id;
-    private final DocumentTypeTechnician documentType;
-    private final DocumentNumberTechnician documentNumber;
-    private final FirstNameTechnician firstName;
-    private final LastNameTechnician lastName;
+    private final TechnicianDocumentType documentType;
+    private final TechnicianDocumentNumber documentNumber;
+    private final TechnicianFirstName firstName;
+    private final TechnicianLastName lastName;
 
-    public Technician(TechnicianId id, DocumentTypeTechnician documentType, DocumentNumberTechnician documentNumber, FirstNameTechnician firstName, LastNameTechnician lastName) {
+    public Technician(TechnicianId id, TechnicianDocumentType documentType, TechnicianDocumentNumber documentNumber, TechnicianFirstName firstName, TechnicianLastName lastName) {
         this.id = id;
         this.documentType = documentType;
         this.documentNumber = documentNumber;
@@ -21,19 +21,19 @@ public class Technician {
         return id;
     }
 
-    public DocumentTypeTechnician getDocumentType() {
+    public TechnicianDocumentType getDocumentType() {
         return documentType;
     }
 
-    public DocumentNumberTechnician getDocumentNumber() {
+    public TechnicianDocumentNumber getDocumentNumber() {
         return documentNumber;
     }
 
-    public FirstNameTechnician getFirstName() {
+    public TechnicianFirstName getFirstName() {
         return firstName;
     }
 
-    public LastNameTechnician getLastName() {
+    public TechnicianLastName getLastName() {
         return lastName;
     }
 
