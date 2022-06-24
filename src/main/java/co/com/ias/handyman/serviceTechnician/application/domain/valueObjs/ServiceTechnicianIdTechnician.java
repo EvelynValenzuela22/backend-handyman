@@ -2,11 +2,13 @@ package co.com.ias.handyman.serviceTechnician.application.domain.valueObjs;
 
 import org.apache.commons.lang3.Validate;
 
-public class ServiceTechnicianIdService {
+import java.util.Calendar;
+
+public class ServiceTechnicianIdTechnician {
     private final Long value;
 
-    public ServiceTechnicianIdService(Long value) {
-        Validate.notNull(value, "Id service of Service Technician can not be null");
+    public ServiceTechnicianIdTechnician(Long value) {
+        Validate.notNull(value, "Technician id of Service Technician can not be null");
         this.value = value;
     }
 
@@ -16,7 +18,7 @@ public class ServiceTechnicianIdService {
 
     @Override
     public String toString() {
-        return "ServiceTechnicianIdService{" +
+        return "ServiceTechnicianIdTechnician{" +
                 "value=" + value +
                 '}';
     }
