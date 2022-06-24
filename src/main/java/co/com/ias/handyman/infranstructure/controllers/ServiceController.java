@@ -2,6 +2,7 @@ package co.com.ias.handyman.infranstructure.controllers;
 
 import co.com.ias.handyman.infranstructure.models.ApplicationError;
 import co.com.ias.handyman.infranstructure.models.ServiceDTO;
+import co.com.ias.handyman.service.application.ports.input.QueryServiceByIdUseCase;
 import co.com.ias.handyman.service.application.services.QueryServiceByIdService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,16 +17,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/services")
 public class ServiceController {
-    private final QueryServiceByIdService queryServiceByIdService;
+    private final QueryServiceByIdUseCase queryServiceByIdUseCase;
 
-    public ServiceController(QueryServiceByIdService queryServiceByIdService) {
-        this.queryServiceByIdService = queryServiceByIdService;
+    public ServiceController(QueryServiceByIdUseCase queryServiceByIdUseCase) {
+        this.queryServiceByIdUseCase = queryServiceByIdUseCase;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> get(@PathVariable Long id) {
         try {
-            Optional<ServiceDTO> serviceDTO = queryServiceByIdService.execute(id);
+            Optional<ServiceDTO> serviceDTO = queryServiceByIdUseCase.execute(id);
             if (serviceDTO.isPresent()) {
                 return ResponseEntity.ok(serviceDTO.get());
             } else {
