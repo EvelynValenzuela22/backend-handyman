@@ -24,13 +24,14 @@ public class TechnicianController {
     @RequestMapping(value = "/document", method = RequestMethod.GET)
     public ResponseEntity<?> getTechnicianByDocument(@RequestParam(name = "type") String type, @RequestParam(name = "number") String number) {
         try {
-            System.out.println("Documento: "+type+". "+number);
             Pair<String, String> document = Pair.of(type, number);
             Optional<TechnicianDTO> technicianDTO = queryTechnicianByDocumentUseCase.execute(document);
             if (technicianDTO.isPresent()) {
                 return ResponseEntity.ok(technicianDTO.get());
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found technician with this document");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        Map.of("result", "Not found technician with this document")
+                );
             }
         } catch (NullPointerException | IllegalArgumentException e) {
             ApplicationError applicationError = new ApplicationError(
