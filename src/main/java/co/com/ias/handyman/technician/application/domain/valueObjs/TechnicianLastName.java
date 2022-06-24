@@ -2,10 +2,10 @@ package co.com.ias.handyman.technician.application.domain.valueObjs;
 
 import org.apache.commons.lang3.Validate;
 
-public class LastNameTechnician {
+public class TechnicianLastName {
     private final String value;
 
-    public LastNameTechnician(String value) {
+    public TechnicianLastName(String value) {
         Validate.notNull(value, "Technician's last name can not be null");
         Validate.isTrue(value.length() <= 20, "Technician's last name can not be longer than 20 characters");
         this.value = value;
