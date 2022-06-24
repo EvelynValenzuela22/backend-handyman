@@ -13,7 +13,7 @@ PRIMARY KEY(id)
 
 CREATE TABLE TECHNICIAN(
 id	            BIGINT DEFAULT nextval('seq') UNIQUE,
-document_type	VARCHAR(20)	NOT NULL,
+document_type	VARCHAR(30)	NOT NULL,
 document_number	VARCHAR(20)	UNIQUE	NOT NULL,
 first_name	    VARCHAR(20)	NOT NULL,
 last_name	    VARCHAR(20)	NOT NULL,
