@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/technicians")
+@CrossOrigin("*")
 public class TechnicianController {
 
     private final QueryTechnicianByDocumentUseCase queryTechnicianByDocumentUseCase;
@@ -30,7 +31,7 @@ public class TechnicianController {
                 return ResponseEntity.ok(technicianDTO.get());
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        Map.of("result", "Not found technician with this document")
+                        Map.of("status", "Not found technician with this document")
                 );
             }
         } catch (NullPointerException | IllegalArgumentException e) {
