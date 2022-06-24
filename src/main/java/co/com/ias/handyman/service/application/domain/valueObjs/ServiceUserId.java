@@ -2,11 +2,11 @@ package co.com.ias.handyman.service.application.domain.valueObjs;
 
 import org.apache.commons.lang3.Validate;
 
-public class ServiceId {
+public class ServiceUserId {
     private final Long value;
 
-    public ServiceId(Long value) {
-        Validate.notNull(value, "Service id can not be null");
+    public ServiceUserId(Long value) {
+        Validate.notNull(value, "User id can not be null");
         this.value = value;
     }
 
@@ -16,7 +16,7 @@ public class ServiceId {
 
     @Override
     public String toString() {
-        return "ServiceId{" +
+        return "ServiceUserId{" +
                 "value=" + value +
                 '}';
     }
