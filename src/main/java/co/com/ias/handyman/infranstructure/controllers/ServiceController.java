@@ -6,16 +6,14 @@ import co.com.ias.handyman.service.application.ports.input.QueryServiceByIdUseCa
 import co.com.ias.handyman.service.application.services.QueryServiceByIdService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/services")
+@CrossOrigin("*")
 public class ServiceController {
     private final QueryServiceByIdUseCase queryServiceByIdUseCase;
 
@@ -31,15 +29,22 @@ public class ServiceController {
                 return ResponseEntity.ok(serviceDTO.get());
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        Map.of("result", "No exist service with this id")
+                        Map.of("status", "No exist service with this id")
                 );
             }
         } catch (NullPointerException | IllegalArgumentException exception) {
-            ApplicationError applicationError = new ApplicationError("InputDataValidationError", "Bad input data",
-                    Map.of("error", exception.getMessage()));
+            ApplicationError applicationError = new ApplicationError(
+                    "InputDataValidationError",
+                    "Bad input data",
+                    Map.of("error", exception.getMessage())
+            );
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(applicationError);
         } catch (Exception exception) {
-            ApplicationError applicationError = new ApplicationError("SystemError", "Try more later", Map.of());
+            ApplicationError applicationError = new ApplicationError(
+                    "SystemError",
+                    "Try more later",
+                    Map.of()
+            );
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(applicationError);
         }
     }
