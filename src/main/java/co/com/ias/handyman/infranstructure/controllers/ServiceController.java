@@ -30,7 +30,9 @@ public class ServiceController {
             if (serviceDTO.isPresent()) {
                 return ResponseEntity.ok(serviceDTO.get());
             } else {
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No exist service with this id");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        Map.of("result", "No exist service with this id")
+                );
             }
         } catch (NullPointerException | IllegalArgumentException exception) {
             ApplicationError applicationError = new ApplicationError("InputDataValidationError", "Bad input data",
