@@ -11,6 +11,7 @@ import java.util.Map;
 import static org.springframework.http.HttpStatus.*;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/service-technician")
 @CrossOrigin("*")
 public class ServiceTechnicianController {
