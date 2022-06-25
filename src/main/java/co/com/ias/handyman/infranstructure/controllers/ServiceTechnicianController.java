@@ -13,7 +13,6 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/service-technician")
-@CrossOrigin("*")
 public class ServiceTechnicianController {
 
     private final CreateServiceTechnicianUseCase createServiceTechnicianUseCase;
