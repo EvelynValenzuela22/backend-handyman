@@ -7,22 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CreateServiceTechnicianServiceTest {
 
-    @Test
-    @DisplayName("Null lastName  should throw an error")
-    void null_lastName() {
-        String invalidateLastName = null;
-        assertThrows(NullPointerException.class, () -> {
-            new TechnicianLastName((invalidateLastName));
-        });
-    }
-    @Test
-    @DisplayName("Can't be no longer to 20 characters")
-    void longerLastName(){
-        String longLastName = "Esto es una prueba para mas de 20 caracteres";
-        assertThrows(IllegalArgumentException.class, () ->{
-            new TechnicianLastName(longLastName);
-        });
-    }
+
     }
 
 
