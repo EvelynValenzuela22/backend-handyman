@@ -8,14 +8,11 @@ import java.util.Calendar;
 
 public class ServiceTechnicianFinalDate {
     private final LocalDateTime value;
-    static Calendar cal = Calendar.getInstance();
+
 
     public ServiceTechnicianFinalDate(LocalDateTime value) {
         Validate.notNull(value, "The final date can not be null");
-        cal.add(Calendar.DATE, -7);
-        LocalDateTime auxDate = cal.getTime().toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+        LocalDateTime auxDate = LocalDateTime.now().minusDays(7);
         Validate.isTrue(value.isAfter(auxDate), "The final date can not be before of seven days ago.");
         Validate.isTrue(value.isBefore(LocalDateTime.now()), "The final date can not be after of now.");
         this.value = value;
