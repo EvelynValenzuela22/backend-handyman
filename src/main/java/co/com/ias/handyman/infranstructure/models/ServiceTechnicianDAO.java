@@ -50,8 +50,8 @@ public class ServiceTechnicianDAO {
         return new ServiceTechnicianDAO(
                 resultSet.getLong("service_id"),
                 resultSet.getLong("technician_id"),
-                (LocalDateTime) resultSet.getObject("start_date"),
-                (LocalDateTime) resultSet.getObject("final_date")
+                resultSet.getTimestamp("start_date").toLocalDateTime(),
+                resultSet.getTimestamp("final_date").toLocalDateTime()
         );
     }
 

@@ -25,7 +25,13 @@ public class ServiceTechnicianController {
     public ResponseEntity<?> store(@RequestBody ServiceTechnicianDTO serviceTechnicianDTO) {
         try {
             ServiceTechnicianDTO output = createServiceTechnicianUseCase.execute(serviceTechnicianDTO);
-            return ResponseEntity.status(CREATED).body(output);
+            if(output.getStatus().equals("Can not be created")) {
+                output.setStatus(output.getStatus() + " because other service was registries in this schedule");
+                return ResponseEntity.status(BAD_REQUEST).body(output);
+            } else {
+                return ResponseEntity.status(CREATED).body(output);
+            }
+
         } catch (NullPointerException | IllegalArgumentException e) {
             ApplicationError applicationError = new ApplicationError(
                     "InputDataValidationError",
