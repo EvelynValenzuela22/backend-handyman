@@ -26,7 +26,7 @@ public class ServiceTechnicianController {
         try {
             ServiceTechnicianDTO output = createServiceTechnicianUseCase.execute(serviceTechnicianDTO);
             if(output.getStatus().equals("Can not be created")) {
-                output.setStatus(output.getStatus() + " because the same service was registries in this schedule");
+                output.setStatus(output.getStatus() + " because the same service was recorded at this time or the technician has already performed a service at this time.");
                 return ResponseEntity.status(BAD_REQUEST).body(output);
             } else {
                 return ResponseEntity.status(CREATED).body(output);
