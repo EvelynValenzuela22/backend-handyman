@@ -24,7 +24,7 @@ public class PostgreSqlServiceRepository implements ServiceRepository {
 
     @Override
     public Optional<Service> get(ServiceId serviceId) {
-        String sql = "Select * From service Where id = ?";
+        String sql = "SELECT * FROM service WHERE id = ?";
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
