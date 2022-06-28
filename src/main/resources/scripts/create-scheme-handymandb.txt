@@ -55,13 +55,13 @@ PRIMARY KEY(id)
 CREATE TABLE SERVICE_TECHNICIAN(
 service_id	    BIGINT	NOT NULL,
 technician_id	BIGINT	NOT NULL,
-start_date	    DATE	NOT NULL,
-final_date	    DATE	NOT NULL,
+start_date	    TIMESTAMP	NOT NULL,
+final_date	    TIMESTAMP	NOT NULL,
 CONSTRAINT fk_service FOREIGN KEY (service_id)
       REFERENCES SERVICE(id),
 CONSTRAINT fk_technician FOREIGN KEY (technician_id)
       REFERENCES TECHNICIAN(id),
-PRIMARY KEY(service_id,technician_id)
+PRIMARY KEY(service_id,technician_id, start_date, final_date)
 );
 
 
