@@ -48,13 +48,15 @@ public class PostgreSqlServiceTechnicianRespository  implements ServiceTechnicia
 
     @Override
     public Optional<ServiceTechnician> get(ServiceTechnicianStartDate startDate, ServiceTechnicianFinalDate finalDate) {
-        String sql = "SELECT * FROM service_technician WHERE start_date = ? AND final_date = ?";
+        String sql = "SELECT * FROM service_technician WHERE start_date BETWEEN ? AND ? AND final_date BETWEEN ? AND ?";
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setObject(1, startDate.getValue());
             preparedStatement.setObject(2, finalDate.getValue());
+            preparedStatement.setObject(3, startDate.getValue());
+            preparedStatement.setObject(4, finalDate.getValue());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
