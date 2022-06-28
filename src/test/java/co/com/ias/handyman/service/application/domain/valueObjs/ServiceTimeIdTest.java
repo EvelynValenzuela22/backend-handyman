@@ -10,14 +10,14 @@ public class ServiceTimeIdTest {
 
     @Test
     @DisplayName("Null service id should throw an error")
-    void null_service_id() {
+    void nullServiceId() {
         Long invalidTimeId = null;
         assertThrows(NullPointerException.class, () -> new ServiceTimeId(invalidTimeId));
     }
 
     @Test
     @DisplayName("Valid service id should not throw an error")
-    void valid_service_time_id() {
+    void validServiceTimeId() {
         Long validId = 2L;
         assertDoesNotThrow(() -> new ServiceTimeId(validId));
     }

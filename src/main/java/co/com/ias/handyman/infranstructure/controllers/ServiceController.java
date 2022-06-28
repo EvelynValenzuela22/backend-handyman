@@ -32,13 +32,6 @@ public class ServiceController {
                         Map.of("status", "No exist service with this id")
                 );
             }
-        } catch (NullPointerException | IllegalArgumentException exception) {
-            ApplicationError applicationError = new ApplicationError(
-                    "InputDataValidationError",
-                    "Bad input data",
-                    Map.of("error", exception.getMessage())
-            );
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(applicationError);
         } catch (Exception exception) {
             ApplicationError applicationError = new ApplicationError(
                     "SystemError",
