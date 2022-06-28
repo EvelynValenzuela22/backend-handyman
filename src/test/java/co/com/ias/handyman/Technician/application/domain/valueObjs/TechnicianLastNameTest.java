@@ -1,15 +1,15 @@
-package co.com.ias.handyman.serviceTechnician.application.services;
+package co.com.ias.handyman.Technician.application.domain.valueObjs;
+
 import co.com.ias.handyman.technician.application.domain.valueObjs.TechnicianLastName;
-import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CreateServiceTechnicianServiceTest {
-
+public class TechnicianLastNameTest {
     @Test
     @DisplayName("Null lastName  should throw an error")
-    void null_lastName() {
+    void nullLastName() {
         String invalidateLastName = null;
         assertThrows(NullPointerException.class, () -> {
             new TechnicianLastName((invalidateLastName));
@@ -24,7 +24,3 @@ public class CreateServiceTechnicianServiceTest {
         });
     }
 }
-
-
-
-
