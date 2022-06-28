@@ -4,6 +4,7 @@ import co.com.ias.handyman.infranstructure.logSystem.Log;
 import co.com.ias.handyman.infranstructure.models.ServiceTechnicianDAO;
 import co.com.ias.handyman.serviceTechnician.application.domain.ServiceTechnician;
 import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianFinalDate;
+import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianIdService;
 import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianStartDate;
 import co.com.ias.handyman.serviceTechnician.application.ports.output.ServiceTechnicianRepository;
 import org.springframework.stereotype.Repository;
@@ -48,7 +49,7 @@ public class PostgreSqlServiceTechnicianRespository  implements ServiceTechnicia
 
     @Override
     public Optional<ServiceTechnician> get(ServiceTechnicianStartDate startDate, ServiceTechnicianFinalDate finalDate) {
-        String sql = "SELECT * FROM service_technician WHERE start_date BETWEEN ? AND ? AND final_date BETWEEN ? AND ?";
+        String sql = "SELECT * FROM service_technician WHERE start_date BETWEEN ? AND ? OR final_date BETWEEN ? AND ? ";
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
