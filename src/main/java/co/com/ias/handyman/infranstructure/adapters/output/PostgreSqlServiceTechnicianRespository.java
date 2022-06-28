@@ -4,7 +4,6 @@ import co.com.ias.handyman.infranstructure.logSystem.Log;
 import co.com.ias.handyman.infranstructure.models.ServiceTechnicianDAO;
 import co.com.ias.handyman.serviceTechnician.application.domain.ServiceTechnician;
 import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianFinalDate;
-import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianIdService;
 import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianStartDate;
 import co.com.ias.handyman.serviceTechnician.application.ports.output.ServiceTechnicianRepository;
 import org.springframework.stereotype.Repository;
@@ -39,8 +38,8 @@ public class PostgreSqlServiceTechnicianRespository  implements ServiceTechnicia
 
             preparedStatement.execute();
 
-        } catch (SQLException exception) {
-            Log logger = new Log(exception.getMessage(), exception.getSQLState());
+        } catch (SQLException | RuntimeException exception) {
+            Log logger = new Log(exception.getMessage(), exception.getStackTrace().toString());
             logger.logger();
             throw new RuntimeException("Error querying database", exception);
         }
@@ -68,7 +67,7 @@ public class PostgreSqlServiceTechnicianRespository  implements ServiceTechnicia
                 return Optional.empty();
             }
 
-        } catch (SQLException exception) {
+        } catch (SQLException | RuntimeException exception) {
 
             throw new RuntimeException("Error querying database", exception);
         }

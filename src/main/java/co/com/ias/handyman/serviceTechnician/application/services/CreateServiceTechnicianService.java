@@ -3,7 +3,6 @@ package co.com.ias.handyman.serviceTechnician.application.services;
 import co.com.ias.handyman.infranstructure.models.ServiceTechnicianDTO;
 import co.com.ias.handyman.serviceTechnician.application.domain.ServiceTechnician;
 import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianFinalDate;
-import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianIdService;
 import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianStartDate;
 import co.com.ias.handyman.serviceTechnician.application.ports.input.CreateServiceTechnicianUseCase;
 import co.com.ias.handyman.serviceTechnician.application.ports.output.ServiceTechnicianRepository;
