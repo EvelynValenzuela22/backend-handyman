@@ -2,6 +2,7 @@ package co.com.ias.handyman.serviceTechnician.application.ports.output;
 
 import co.com.ias.handyman.serviceTechnician.application.domain.ServiceTechnician;
 import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianFinalDate;
+import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianIdService;
 import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianStartDate;
 import org.springframework.stereotype.Repository;
 
