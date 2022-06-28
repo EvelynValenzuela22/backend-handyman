@@ -27,7 +27,7 @@ public class PostgreSqlServiceRepositoryTest {
 
     @Test
     @DisplayName("When serviceId is valid should return an Optional with data")
-    void valid_service_id() {
+    void validServiceId() {
         ServiceId serviceId = new ServiceId(2L);
 
         Optional<Service> queryService = postgreSqlServiceRepository.get(serviceId);
@@ -38,7 +38,7 @@ public class PostgreSqlServiceRepositoryTest {
 
     @Test
     @DisplayName("When serviceId does not exist should return an Optional empty")
-    void invalid_service_id() {
+    void invalidServiceId() {
         ServiceId serviceId = new ServiceId(1L);
 
         Optional<Service> queryService = postgreSqlServiceRepository.get(serviceId);
@@ -48,10 +48,10 @@ public class PostgreSqlServiceRepositoryTest {
 
     @Test
     @DisplayName("When service Id is null should throw an error ")
-    void null_service_id() {
+    void nulServiceId() {
         ServiceId serviceId = null;
 
-        assertThrows(SQLException.class, () -> postgreSqlServiceRepository.get(serviceId));
+        assertThrows(NullPointerException.class, () -> postgreSqlServiceRepository.get(serviceId));
 
     }
 
