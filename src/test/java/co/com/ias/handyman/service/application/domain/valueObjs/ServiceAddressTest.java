@@ -10,14 +10,14 @@ public class ServiceAddressTest {
 
     @Test
     @DisplayName("Null service address should throw an error")
-    void null_service_address() {
+    void nullServiceAddress() {
         String invalidAddress = null;
         assertThrows(NullPointerException.class, () -> new ServiceAddress(invalidAddress));
     }
 
     @Test
     @DisplayName("Valid service id should not throw an error")
-    void valid_service_address() {
+    void validServiceAddress() {
         String validAddress= "Calle 25";
         assertDoesNotThrow(() -> new ServiceAddress(validAddress));
     }
