@@ -7,7 +7,7 @@ public class TechnicianDocumentType {
 
     public TechnicianDocumentType(String value) {
         Validate.notNull(value, "Technician's document type can not be null");
-        Validate.isTrue(value.length() <= 30, "Technician's document type can not be longer than 20 characters");
+        Validate.isTrue(value.length() <= 30, "Technician's document type can not be longer than 30 characters");
         this.value = value;
     }
 
