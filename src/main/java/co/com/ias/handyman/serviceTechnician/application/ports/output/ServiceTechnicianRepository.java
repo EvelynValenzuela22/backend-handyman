@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+
 public interface ServiceTechnicianRepository  {
 
     void store(ServiceTechnician serviceTechnician);

@@ -1,6 +1,5 @@
 package co.com.ias.handyman.service.application.ports.ouput;
 
-import co.com.ias.handyman.infranstructure.models.ServiceDTO;
 import co.com.ias.handyman.service.application.domain.Service;
 import co.com.ias.handyman.service.application.domain.valueObjs.ServiceId;
 import co.com.ias.handyman.service.application.ports.output.ServiceRepository;
@@ -12,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
