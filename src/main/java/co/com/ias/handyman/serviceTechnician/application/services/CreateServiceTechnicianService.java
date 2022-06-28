@@ -28,11 +28,16 @@ public class CreateServiceTechnicianService implements CreateServiceTechnicianUs
 
         ServiceTechnician serviceTechnician = serviceTechnicianDTO.toDomain();
 
-        if(resultDatabase.isPresent() && Objects.equals(resultDatabase.get().getIdService().getValue(), serviceTechnician.getIdService().getValue())) {
+        if(resultDatabase.isPresent() &&
+                (Objects.equals(resultDatabase.get().getIdService().getValue(), serviceTechnician.getIdService().getValue()) ||
+                        Objects.equals(resultDatabase.get().getIdTechnician().getValue(), serviceTechnician.getIdTechnician().getValue()))
+        ) {
             serviceTechnicianDTO.setStatus("Can not be created");
         } else {
             repository.store(serviceTechnician);
             serviceTechnicianDTO.setStatus("Created");
+
+
         }
         return serviceTechnicianDTO;
 
