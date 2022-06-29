@@ -15,7 +15,6 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -26,18 +25,18 @@ public class PostgreSqlServiceRepositoryTest {
 
     @Test
     @DisplayName("When serviceId is valid should return an Optional with data")
-    void getServiceSuccess() {
+    void validServiceId() {
         ServiceId serviceId = new ServiceId(2L);
 
         Optional<Service> queryService = postgreSqlServiceRepository.get(serviceId);
 
-        assertNotNull(queryService);
         assertEquals(serviceId.getValue(), queryService.get().getId().getValue());
+
     }
 
     @Test
     @DisplayName("When serviceId does not exist should return an Optional empty")
-    void getServiceWhenIdDoesNotExist() {
+    void invalidServiceId() {
         ServiceId serviceId = new ServiceId(1L);
 
         Optional<Service> queryService = postgreSqlServiceRepository.get(serviceId);
@@ -47,7 +46,7 @@ public class PostgreSqlServiceRepositoryTest {
 
     @Test
     @DisplayName("When service Id is null should throw an error ")
-    void getServiceWhenIdIsInvalid() {
+    void nulServiceId() {
         ServiceId serviceId = null;
 
         assertThrows(NullPointerException.class, () -> postgreSqlServiceRepository.get(serviceId));
