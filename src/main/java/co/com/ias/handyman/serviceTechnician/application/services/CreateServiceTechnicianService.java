@@ -8,6 +8,7 @@ import co.com.ias.handyman.serviceTechnician.application.ports.input.CreateServi
 import co.com.ias.handyman.serviceTechnician.application.ports.output.ServiceTechnicianRepository;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.StyledEditorKit;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -27,10 +28,10 @@ public class CreateServiceTechnicianService implements CreateServiceTechnicianUs
 
         resultDatabase.ifPresent(result -> {
             boolean serviceExist = Objects.equals(result.getIdService().getValue(), serviceTechnicianDTO.getIdService());
-            boolean technicianExist = Objects.equals(result.getIdTechnician().getValue(), serviceTechnicianDTO.getIdTechnician());
-            if(!serviceExist && !technicianExist) {
-                serviceTechnicianDTO.setStatus("Created");
+            boolean technicianExist = Objects.equals(result.getIdTechnician().getValue(), serviceTechnicianDTO.getIdService());
+            if(!serviceExist || !technicianExist) {
                 repository.store(serviceTechnicianDTO.toDomain());
+                serviceTechnicianDTO.setStatus("Created");
             }
         });
         return serviceTechnicianDTO;
