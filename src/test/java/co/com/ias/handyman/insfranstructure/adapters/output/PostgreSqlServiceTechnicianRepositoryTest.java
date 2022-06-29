@@ -29,8 +29,8 @@ public class PostgreSqlServiceTechnicianRepositoryTest {
     @Test
     @DisplayName("Valid serviceTechnician should no throw an error")
     void validServiceTechnicianWhenStore() {
-        LocalDateTime startDate = LocalDateTime.of(2022, JUNE, 22, 15, 35, 00);
-        LocalDateTime finalDate = LocalDateTime.of(2022, JUNE, 22, 16, 35, 00);
+        LocalDateTime startDate = LocalDateTime.of(2022, JUNE, 22, 16, 35, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2022, JUNE, 22, 17, 35, 00);
 
         ServiceTechnicianDTO serviceTechnicianDTO = new ServiceTechnicianDTO(11L, 2L, startDate, finalDate);
 
