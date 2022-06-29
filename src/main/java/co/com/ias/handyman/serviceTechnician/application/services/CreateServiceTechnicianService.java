@@ -2,43 +2,48 @@ package co.com.ias.handyman.serviceTechnician.application.services;
 
 import co.com.ias.handyman.infranstructure.models.ServiceTechnicianDTO;
 import co.com.ias.handyman.serviceTechnician.application.domain.ServiceTechnician;
-import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianFinalDate;
-import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianStartDate;
 import co.com.ias.handyman.serviceTechnician.application.ports.input.CreateServiceTechnicianUseCase;
 import co.com.ias.handyman.serviceTechnician.application.ports.output.ServiceTechnicianRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-import java.util.Optional;
-
 @Service
 public class CreateServiceTechnicianService implements CreateServiceTechnicianUseCase {
-    private final ServiceTechnicianRepository repository;
+    private final ServiceTechnicianRepository serviceTechnicianRepository;
 
     public CreateServiceTechnicianService(ServiceTechnicianRepository repository) {
-        this.repository = repository;
+        this.serviceTechnicianRepository = repository;
     }
 
     @Override
     public ServiceTechnicianDTO execute(ServiceTechnicianDTO serviceTechnicianDTO) {
-        ServiceTechnicianStartDate startDate = new ServiceTechnicianStartDate(serviceTechnicianDTO.getStartDate());
-        ServiceTechnicianFinalDate finalDate = new ServiceTechnicianFinalDate(serviceTechnicianDTO.getFinalDate());
-        Optional<ServiceTechnician> resultDatabase = repository.get(startDate, finalDate);
-
         ServiceTechnician serviceTechnician = serviceTechnicianDTO.toDomain();
 
-        if(resultDatabase.isPresent() &&
-                (Objects.equals(resultDatabase.get().getIdService().getValue(), serviceTechnician.getIdService().getValue()) ||
-                        Objects.equals(resultDatabase.get().getIdTechnician().getValue(), serviceTechnician.getIdTechnician().getValue()))
-        ) {
-            serviceTechnicianDTO.setStatus("Can not be created");
-        } else {
-            repository.store(serviceTechnician);
+        boolean serviceExist = serviceExistsBetweenDates(serviceTechnician);
+        boolean technicianExist = technicianExistBetweenDates(serviceTechnician);
+
+        if(!(serviceExist || technicianExist)) {
             serviceTechnicianDTO.setStatus("Created");
-
-
+            serviceTechnicianRepository.store(serviceTechnician);
         }
         return serviceTechnicianDTO;
 
     }
+
+    public boolean serviceExistsBetweenDates(ServiceTechnician serviceTechnician) {
+        return serviceTechnicianRepository.getServiceBetweenDates(
+            serviceTechnician.getStartDate(),
+            serviceTechnician.getFinalDate(),
+            serviceTechnician.getIdService()
+        ).isPresent();
+    }
+
+    public  boolean technicianExistBetweenDates(ServiceTechnician serviceTechnician) {
+        return serviceTechnicianRepository.getTechnicianBetweenDates(
+            serviceTechnician.getStartDate(),
+            serviceTechnician.getFinalDate(),
+            serviceTechnician.getIdTechnician()
+        ).isPresent();
+    }
+
+
 }
