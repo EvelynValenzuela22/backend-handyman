@@ -4,6 +4,8 @@ import co.com.ias.handyman.infranstructure.logSystem.Log;
 import co.com.ias.handyman.infranstructure.models.ServiceTechnicianDAO;
 import co.com.ias.handyman.serviceTechnician.application.domain.ServiceTechnician;
 import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianFinalDate;
+import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianIdService;
+import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianIdTechnician;
 import co.com.ias.handyman.serviceTechnician.application.domain.valueObjs.ServiceTechnicianStartDate;
 import co.com.ias.handyman.serviceTechnician.application.ports.output.ServiceTechnicianRepository;
 import org.springframework.stereotype.Repository;
@@ -47,16 +49,45 @@ public class PostgreSqlServiceTechnicianRespository  implements ServiceTechnicia
     }
 
     @Override
-    public Optional<ServiceTechnician> get(ServiceTechnicianStartDate startDate, ServiceTechnicianFinalDate finalDate) {
-        String sql = "SELECT * FROM service_technician WHERE start_date BETWEEN ? AND ? OR final_date BETWEEN ? AND ? ";
+    public Optional<ServiceTechnician> getServiceBetweenDates(ServiceTechnicianStartDate startDate, ServiceTechnicianFinalDate finalDate, ServiceTechnicianIdService idService) {
+        String sql = "SELECT * FROM service_technician WHERE service_id = ? AND (start_date BETWEEN ? AND ? OR final_date BETWEEN ? AND ?) ";
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setObject(1, startDate.getValue());
-            preparedStatement.setObject(2, finalDate.getValue());
-            preparedStatement.setObject(3, startDate.getValue());
-            preparedStatement.setObject(4, finalDate.getValue());
+            preparedStatement.setLong(1, idService.getValue());
+            preparedStatement.setObject(2, startDate.getValue());
+            preparedStatement.setObject(3, finalDate.getValue());
+            preparedStatement.setObject(4, startDate.getValue());
+            preparedStatement.setObject(5, finalDate.getValue());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                ServiceTechnicianDAO serviceTechnicianDAO = ServiceTechnicianDAO.fromResultSet(resultSet);
+                ServiceTechnician serviceTechnician = serviceTechnicianDAO.toDomain();
+                return Optional.of(serviceTechnician);
+            } else {
+                return Optional.empty();
+            }
+
+        } catch (SQLException | RuntimeException exception) {
+
+            throw new RuntimeException("Error querying database", exception);
+        }
+    }
+
+    @Override
+    public Optional<ServiceTechnician> getTechnicianBetweenDates(ServiceTechnicianStartDate startDate, ServiceTechnicianFinalDate finalDate, ServiceTechnicianIdTechnician idTechnician) {
+        String sql = "SELECT * FROM service_technician WHERE technician_id = ?  AND (start_date BETWEEN ? AND ? OR final_date BETWEEN ? AND ?) ";
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setLong(1, idTechnician.getValue());
+            preparedStatement.setObject(2, startDate.getValue());
+            preparedStatement.setObject(3, finalDate.getValue());
+            preparedStatement.setObject(4, startDate.getValue());
+            preparedStatement.setObject(5, finalDate.getValue());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
