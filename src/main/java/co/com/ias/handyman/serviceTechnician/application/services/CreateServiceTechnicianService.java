@@ -8,7 +8,6 @@ import co.com.ias.handyman.serviceTechnician.application.ports.input.CreateServi
 import co.com.ias.handyman.serviceTechnician.application.ports.output.ServiceTechnicianRepository;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.StyledEditorKit;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -26,14 +25,19 @@ public class CreateServiceTechnicianService implements CreateServiceTechnicianUs
         ServiceTechnicianFinalDate finalDate = new ServiceTechnicianFinalDate(serviceTechnicianDTO.getFinalDate());
         Optional<ServiceTechnician> resultDatabase = repository.get(startDate, finalDate);
 
-        resultDatabase.ifPresent(result -> {
-            boolean serviceExist = Objects.equals(result.getIdService().getValue(), serviceTechnicianDTO.getIdService());
-            boolean technicianExist = Objects.equals(result.getIdTechnician().getValue(), serviceTechnicianDTO.getIdService());
-            if(!serviceExist || !technicianExist) {
-                repository.store(serviceTechnicianDTO.toDomain());
-                serviceTechnicianDTO.setStatus("Created");
-            }
-        });
+        ServiceTechnician serviceTechnician = serviceTechnicianDTO.toDomain();
+
+        if(resultDatabase.isPresent() &&
+                (Objects.equals(resultDatabase.get().getIdService().getValue(), serviceTechnician.getIdService().getValue()) ||
+                        Objects.equals(resultDatabase.get().getIdTechnician().getValue(), serviceTechnician.getIdTechnician().getValue()))
+        ) {
+            serviceTechnicianDTO.setStatus("Can not be created");
+        } else {
+            repository.store(serviceTechnician);
+            serviceTechnicianDTO.setStatus("Created");
+
+
+        }
         return serviceTechnicianDTO;
 
     }

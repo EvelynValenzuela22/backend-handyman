@@ -14,7 +14,7 @@ public class ServiceTechnicianDTO {
     private Long idTechnician;
     private LocalDateTime startDate;
     private LocalDateTime finalDate;
-    private String status = "Can not be create";
+    private String status;
 
     public ServiceTechnicianDTO() {
     }
